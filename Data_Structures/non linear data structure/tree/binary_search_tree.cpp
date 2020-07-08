@@ -1,69 +1,128 @@
-// C program to demonstrate insert operation in binary search tree
 #include<stdio.h>
 #include<stdlib.h>
 
-struct node
+struct bin_tree
 {
-    int key;
-    struct node *left, *right;
+    int data;
+    struct bin_tree *right, *left;
 };
+typedef struct bin_tree node;
 
-// A utility function to create a new BST node
-struct node *newNode(int item)
+void insert(node **tree, int val)
 {
-    struct node *temp =  (struct node *)malloc(sizeof(struct node));
-    temp->key = item;
-    temp->left = temp->right = NULL;
-    return temp;
-}
-
-// A utility function to do inorder traversal of BST
-void inorder(struct node *root)
-{
-    if (root != NULL)
+    node *temp=NULL;
+    if(!(*tree))
     {
-        inorder(root->left);
-        printf("%d \n", root->key);
-        inorder(root->right);
+        temp=(node *)malloc(sizeof(node));
+        temp->left=temp->right=NULL;
+        temp->data=val;
+        *tree=temp;
+        return;
+    }
+    if(val<(*tree)->data)
+    {
+        insert(&(*tree)->left,val);
+    }
+    else if(val>(*tree)->data)
+    {
+        insert(&(*tree)->right,val);
     }
 }
 
-/* A utility function to insert a new node with given key in BST */
-struct node* insert(struct node* node, int key)
+void print_preorder(node *tree)
 {
-    /* If the tree is empty, return a new node */
-    if (node == NULL) return newNode(key);
-
-    /* Otherwise, recur down the tree */
-    if (key < node->key)
-        node->left  = insert(node->left, key);
-    else if (key > node->key)
-        node->right = insert(node->right, key);
-
-    /* return the (unchanged) node pointer */
-    return node;
+    if(tree)
+    {
+        printf("%d\n",tree->data);
+        print_preorder(tree->left);
+        print_preorder(tree->right);
+    }
 }
 
-// Driver Program to test above functions
+void print_postorder(node *tree)
+{
+    if(tree)
+    {
+        print_postorder(tree->left);
+        print_postorder(tree->right);
+        printf("%d\n",tree->data);
+    }
+}
+
+void print_inorder(node *tree)
+{
+    if(tree)
+    {
+        print_inorder(tree->left);
+        printf("%d\n",tree->data);
+        print_inorder(tree->right);
+    }
+}
+
+void deltree(node *tree)
+{
+    if(tree)
+    {
+        deltree(tree->left);
+        deltree(tree->right);
+        free(tree);
+    }
+}
+node *search(node **tree, int val)
+{
+     if(!(*tree))
+     {
+         return NULL;
+     }
+     if(val<(*tree)->data)
+     {
+         search(&((*tree)->left),val);
+     }
+     else if(val>(*tree)->data)
+     {
+         search(&((*tree)->right),val);
+     }
+     else if(val==(*tree)->data)
+     {
+         return *tree;
+     }
+}
+
 int main()
 {
-    /* Let us create following BST
-              50
-           /     \
-          30      70
-         /  \    /  \
-       20   40  60   80 */
-    struct node *root = NULL;
-    root = insert(root, 50);
-    insert(root, 30);
-    insert(root, 20);
-    insert(root, 40);
-    insert(root, 70);
-    insert(root, 60);
-    insert(root, 80);
+    node *root;
+    node *temp;
 
-    // print inoder traversal of the BST
-    inorder(root);
+    root=NULL;
+    insert(&root, 9);
+    insert(&root, 4);
+    insert(&root, 15);
+    insert(&root, 6);
+    insert(&root, 12);
+    insert(&root, 17);
+    insert(&root, 2);
 
-    return 0;
+    printf("Pre Oreder Display\n");
+    print_preorder(root);
+
+    printf("In Order Display\n");
+    print_inorder(root);
+
+    printf("Post Order Display\n");
+    print_postorder(root);
+
+    int n;
+    printf("Enter A Number You Want To Search.\n");
+    scanf("%d",&n);
+    temp=search(&root,n);
+    if(temp)
+    {
+        printf("Searched node = %d\n",temp->data);
+    }
+    else
+    {
+        printf("Data Not found in tree.\n");
+    }
+
+    deltree(root);
 }
