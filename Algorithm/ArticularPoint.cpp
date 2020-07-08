@@ -9,12 +9,7 @@ bool visited[100005];
 bool ap[100005];
 vector<int>adj[100005];
 int Time;
-// A recursive function that find articulation points using DFS traversal
-// u --> The vertex to be visited next
-// visited[] --> keeps tract of visited vertices
-// disc[] --> Stores discovery times of visited vertices
-// parent[] --> Stores parent vertices in DFS tree
-// ap[] --> Store articulation points
+
 void TarjanDFS(int u)
 {
     int i;
