@@ -13,9 +13,9 @@
       
 ## Structure [Click](https://github.com/GK-CPP/Data-Structure-And-Algorithm/tree/master/Structure)</br>
 
-============================================== </br>
-Name:     Gulam Kibria Chowdhury</br>
-Study:      CSE, NEUB</br>
-Address:  Sylhet, Bangladesh</br>
-mail: gkpalash101@gmail.com</br>
-============================================== </br>
+=============================================== <br> 
+Gulam Kibria Chowdhury <br>
+CSE Graduate || Competitive Programmer <br>
+Sylhet, Bangladesh <br>
+Gmail: gkchowdhury101@gmail.com <br>
+=============================================== <br>
